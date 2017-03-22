@@ -4,7 +4,7 @@
 
 
 
-$(document).on('ready', function() {
+// $(document).on('ready', function() {
 
 
 
@@ -34,7 +34,7 @@ $(document).on('ready', function() {
      */
 
 
-    /*
+
      link.attr({
      '.connection': { stroke: '#222138' },
      '.marker-source': { fill: '#31d0c6', stroke: 'none', d: 'M 10 0 L 0 5 L 10 10 z' },
@@ -134,9 +134,6 @@ $(document).on('ready', function() {
      });
 
 
-     graph.addCell([link, link2, link3, link4, link5, link6, link7, link8]);
-
-     */
 
 
     var class1 = new swedesigner.client.model.celltypes.ClassDiagramElement({
@@ -173,20 +170,119 @@ $(document).on('ready', function() {
 
     });
 
+var class2 = new swedesigner.client.model.celltypes.ClassDiagramElement({
+    position: {x: 120, y: 190},
+    size: {width: 100, height: 100},
+    name: 'MyClass2',
+    attributes: ['- fruit: int', '+ animal: Dog', '+ animal: Dog', '+ animal: Dog', '+ animal: Dog', '+ animal: Dog'],
+    methods: ['+ HasBanana(): bool', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void', '- pet(): void'],
+
+});
+
     var paper = new joint.dia.Paper({
         el: $('#paper'),
-        width: 4000,
-        height: 3600,
+        width: 800,
+        height: 600,
         model: graph,
         gridSize: 6,
         drawGrid: true,
-        elementView: swedesigner.client.model.celltypes.ClassDiagramElementView
-    });
+        elementView: swedesigner.client.model.celltypes.ClassDiagramElementView,
 
-    graph.addCell([class1]);
+        linkView: joint.dia.LinkView.extend({
+            pointerdblclick: function(evt, x, y) {
+                if (V(evt.target).hasClass('connection') || V(evt.target).hasClass('connection-wrap')) {
+                    this.addVertex({ x: x, y: y });
+                }
+            },
+            pointerclick: function(evt, x, y) {
+                console.log("you clicked a link");
+                // codice per dire a detailsview che è cambiato qualcosa
+            }
+        }),
 
+        selectedCell: null,
+
+        interactive: function(cellView) {
+            if (cellView.model instanceof joint.dia.Link) {
+                // Disable the default vertex add functionality on pointerdown.
+                return { vertexAdd: false };
+            }
+            return true;
+        },
+
+
+        initialize: function()
+        {
+            var myDetailsView = new DetailsView();
+
+        },
 
 
 });
 
+paper.on('cell:pointerclick',  function (cellView, evt, x, y) {
+    //console.log(this.selectedCell);
+    this.selectedCell = cellView.model;
+    console.log(cellView.model.getClassName());
+    this.trigger("changed-cell");
+});
 
+    //paper.on('cell:pointerclick', function(cellView, evt, x, y) {  console.log("pointerclicked"); this.trigger('paper:cellChanged', cellView);  } );
+
+graph.addCell([class1, class2]);
+
+
+graph.addCell([link, link2, link3, link4, link5, link6, link7, link8]);
+
+
+
+//});
+
+
+
+var DetailsView = Backbone.View.extend({
+    tagname: "li",
+    className: "details-view",
+
+
+    /*events: {
+     "click .adda":   "addAttribute",
+     "click .addm":  "addMethod",
+     "keydown" : "confirm"
+     },*/
+    //paper: null,
+
+    //templ: _.template($('#class-template').html()),
+
+
+    initialize: function () {
+
+        //this.listenTo(paper, "cellChanged", this.changeModel);
+        this.listenTo(paper, "changed-cell", this.render);
+
+        // si riesce a passare paper come parametro?
+    },
+
+    render: function () {
+        console.log("i'm detailsview and i saw your change");
+console.log(this.$el.html);
+        this.$el.html( "abc");
+
+        return this;
+
+
+    },
+
+
+    /*
+     confirm: function (e) {
+     if (e.which === ENTER_KEY) {
+     // fai controllo di dati corretti e aggiorna il graph
+     }
+     }
+     */
+
+
+});
+
+var myDetailsView = new DetailsView({el: $("details")});
