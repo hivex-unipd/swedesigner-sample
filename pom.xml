@@ -33,6 +33,11 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        	<groupId>org.antlr</groupId>
+        	<artifactId>ST4</artifactId>
+        	<version>4.0.8</version>
+        </dependency>
     </dependencies>
 
     <properties>
