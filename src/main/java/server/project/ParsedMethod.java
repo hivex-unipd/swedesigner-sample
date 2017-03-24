@@ -2,7 +2,7 @@ package server.project;
 
 import server.template.Template;
 
-class ParsedMethod implements ParsedElement {
-	public String renderTemplate(Template t){
+public class ParsedMethod implements ParsedElement {
+	public String renderTemplate(Template t, String lang){
 		return null;/*implementazione*/};
 }

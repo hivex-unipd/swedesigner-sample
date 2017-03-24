@@ -1,5 +1,5 @@
 package server.project;
 
-abstract class ParsedInstruction implements ParsedElement {
+public abstract class ParsedInstruction implements ParsedElement {
 
 }

@@ -2,7 +2,7 @@ package server.project;
 
 import server.template.Template;
 
-class ParsedReturn extends ParsedInstruction {
-	public String renderTemplate(Template t){
+public class ParsedReturn extends ParsedInstruction {
+	public String renderTemplate(Template t, String lang){
 		return null;/*implementazione*/};
 }

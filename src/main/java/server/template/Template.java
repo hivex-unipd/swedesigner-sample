@@ -1,5 +1,7 @@
 package server.template;
 
-public interface Template {
+import org.stringtemplate.v4.ST;
 
+public interface Template {
+	public ST getAttributeTemplate();
 }
