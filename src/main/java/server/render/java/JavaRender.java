@@ -4,6 +4,7 @@ import org.stringtemplate.v4.ST;
 
 import server.project.ParsedAttribute;
 import server.project.ParsedElement;
+import server.project.ParsedMethod;
 import server.render.Render;
 
 public class JavaRender implements Render {
@@ -15,6 +16,17 @@ public class JavaRender implements Render {
 		st.add("type", p.getType());
 		st.add("name", p.getName());
 		st.add("value", p.getValue());
+		return st.render();
+	}
+	
+	@Override
+	public String FillMethodTemplate(ST st, ParsedMethod p) {
+		// TODO Auto-generated method stub
+		st.add("visibility", p.getVisibility());
+		st.add("name", p.getName());
+		for(int i=0;i<p.getParameters().length;i++){
+			st.add("parameters", p.getParameters()[i]);
+		}
 		return st.render();
 	}
 
