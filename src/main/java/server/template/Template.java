@@ -2,48 +2,26 @@ package server.template;
 
 import org.stringtemplate.v4.ST;
 
-public abstract class Template {
-	public ST getAttributeTemplate() {
-		return null;
-	}
+public interface Template {
+	public ST getAttributeTemplate();
 	
-	public ST getMethodTemplate() {
-		return null;
-	}
+	public ST getMethodTemplate();
 	
-	public ST getClassTemplate() {
-		return null;
-	}
+	public ST getClassTemplate();
 	
-	public ST getInterfaceTemplate() {
-		return null;
-	}
+	public ST getInterfaceTemplate();
 	
-	public ST getIfTemplate() {
-		return null;
-	}
+	public ST getIfTemplate();
 	
-	public ST getCustomTemplate() {
-		return null;
-	}
+	public ST getCustomTemplate();
 	
-	public ST getReturnTemplate() {
-		return null;
-	}
+	public ST getReturnTemplate();
 	
-	public ST getAssignmentTemplate() {
-		return null;
-	}
+	public ST getAssignmentTemplate();
 	
-	public ST getInitializationTemplate() {
-		return null;
-	}
+	public ST getInitializationTemplate();
 	
-	public ST getForTemplate() {
-		return null;
-	}
+	public ST getForTemplate();
 	
-	public ST getWhileTemplate() {
-		return null;
-	}
+	public ST getWhileTemplate();
 }

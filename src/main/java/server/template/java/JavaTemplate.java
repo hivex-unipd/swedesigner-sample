@@ -4,7 +4,7 @@ import org.stringtemplate.v4.*;
 
 import server.template.Template;
 
-public class JavaTemplate extends Template {
+public class JavaTemplate implements Template {
 
 	@Override
 	public ST getAttributeTemplate() {
