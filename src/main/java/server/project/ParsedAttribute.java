@@ -2,8 +2,8 @@ package server.project;
 
 import org.stringtemplate.v4.ST;
 
-import server.render.JavaRender;
 import server.render.Render;
+import server.render.java.JavaRender;
 import server.template.Template;
 
 public class ParsedAttribute implements ParsedElement {

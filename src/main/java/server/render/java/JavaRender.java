@@ -1,9 +1,10 @@
-package server.render;
+package server.render.java;
 
 import org.stringtemplate.v4.ST;
 
 import server.project.ParsedAttribute;
 import server.project.ParsedElement;
+import server.render.Render;
 
 public class JavaRender implements Render {
 
