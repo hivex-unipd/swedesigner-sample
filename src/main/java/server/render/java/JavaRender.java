@@ -24,9 +24,6 @@ public class JavaRender implements Render {
 		// TODO Auto-generated method stub
 		st.add("visibility", p.getVisibility());
 		st.add("name", p.getName());
-		for(int i=0;i<p.getParameters().length;i++){
-			st.add("parameters", p.getParameters()[i]);
-		}
 		return st.render();
 	}
 
