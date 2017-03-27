@@ -1,37 +1,60 @@
 package server.project;
 
-import server.render.Render;
-import server.render.java.JavaRender;
-import server.template.Template;
 import org.stringtemplate.v4.ST;
+
+import server.template.Template;
 
 public class ParsedMethod implements ParsedElement {
 	private String visibility;
+	private boolean is_static;
+	private String return_type;
 	private String name;
-	private ParsedAttribute[] parameters;
+	private ParsedAttribute[] args;
+	private ParsedInstruction[] body;
 	
-	public ParsedMethod(String vis, String n, ParsedAttribute[] par){ visibility = vis; name = n; parameters = par;}
-	
-    public String getVisibility(){ return visibility;}
-    public String getName(){return name;}
-    public ParsedAttribute[] getParameters(){return parameters;}
+	//costruttore
+	public ParsedMethod(String visibility, boolean is_static, String return_type, String name, ParsedAttribute[] args, ParsedInstruction[] body){
+		this.visibility = visibility;
+		this.is_static = is_static;
+		this.return_type = return_type;
+		this.name = name;
+		this.args = args;
+		this.body = body;
+	}
 	
 	public String renderTemplate(Template t, String lang){
-		ST methodtemplate = t.getMethodTemplate();
-		Render r = new JavaRender();
-		String listaparametri = "";
-		for(int i=0; i<parameters.length;i++){
-			ST attrtemplate = t.getAttributeTemplate();
-			listaparametri += (r.FillAttributeTemplate(attrtemplate, parameters[i]));
-			int g = listaparametri.length();
-			if(i==parameters.length-1) 
-				listaparametri = listaparametri.substring(0, g - 1);
-			else{
-					listaparametri += ",";
-					g = listaparametri.length();
-					listaparametri = listaparametri.substring(0, g - 2) + listaparametri.substring(g - 1) + " ";
-			}
+		ST template = t.getMethodTemplate();
+		template.add("method", this);
+		String args_string = "";
+		template.add("args", args_string);
+		String body_string = "";
+		for(int i=0; i<body.length; i++){
+			body_string += body[i].renderTemplate(t, lang);
 		}
-		return (r.FillMethodTemplate(methodtemplate, this))+("("+listaparametri+")");
-	};
+		template.add("body", body_string);
+		return template.render();
+	}
+	
+	public String getVisibility() {
+		return visibility;
+	}
+	
+	public boolean getIs_static() {
+		return is_static;
+	}
+	
+	public String getReturn_type() {
+		return return_type;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	public ParsedAttribute[] getArgs() {
+		return args;
+	}
+	
+	public ParsedInstruction[] getBody() {
+		return body;
+	}
 }
