@@ -18,11 +18,19 @@ public class ParsedMethod implements ParsedElement {
 	
 	public String renderTemplate(Template t, String lang){
 		ST methodtemplate = t.getMethodTemplate();
-		ST attrtemplate = t.getAttributeTemplate();
 		Render r = new JavaRender();
-		String listaparametri=null;
+		String listaparametri = "";
 		for(int i=0; i<parameters.length;i++){
-			listaparametri += (r.FillAttributeTemplate(attrtemplate, parameters[i]))+",";
+			ST attrtemplate = t.getAttributeTemplate();
+			listaparametri += (r.FillAttributeTemplate(attrtemplate, parameters[i]));
+			int g = listaparametri.length();
+			if(i==parameters.length-1) 
+				listaparametri = listaparametri.substring(0, g - 1);
+			else{
+					listaparametri += ",";
+					g = listaparametri.length();
+					listaparametri = listaparametri.substring(0, g - 2) + listaparametri.substring(g - 1) + " ";
+			}
 		}
 		return (r.FillMethodTemplate(methodtemplate, this))+("("+listaparametri+")");
 	};

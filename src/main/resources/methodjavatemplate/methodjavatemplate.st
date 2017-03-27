@@ -1,1 +1,1 @@
-methodjavatemplate(visibility, name) ::= "<initVis(visibility)> <name>;"
+methodjavatemplate(visibility, name) ::= "<initVis(visibility)> <name> "

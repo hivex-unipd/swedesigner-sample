@@ -20,8 +20,8 @@ public class ProvaMain {
 		
 		ParsedAttribute[] arrayAttr;
 		arrayAttr = new ParsedAttribute[2];
-		arrayAttr[0] = new ParsedAttribute("public", "int", "x", null);
-		arrayAttr[1] = new ParsedAttribute("private", "int", "y", null);
+		arrayAttr[0] = new ParsedAttribute(null, "int", "x", null);
+		arrayAttr[1] = new ParsedAttribute(null, "String", "ddd", null);
 		
 		
 		ParsedMethod x = new ParsedMethod("public", "pippo", arrayAttr);
